@@ -13,6 +13,11 @@ function App() {
   const [value, setValue] = useState(list);
 
   const addListItem = () => {
+    if (textInput.current.value === '') {
+      alert('Please enter correct value');
+      return;
+    }
+
     list.push({ id: id, text: textInput.current.value });
     id += 1;
     const newList = [...list];
