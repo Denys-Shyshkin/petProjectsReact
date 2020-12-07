@@ -1,4 +1,4 @@
-import React, { createRef, useState } from 'react';
+import React, { createRef, useEffect, useState } from 'react';
 import ListItem from './ListItem';
 
 import './App.css';
@@ -23,8 +23,18 @@ function App() {
     }
   };
 
-  const checkItemHandler = () => {
-    console.log('checked');
+  const checkItemHandler = (id) => {
+    list.forEach((item) => {
+      if (item.id === id) {
+        if (item.checked) {
+          item.checked = false;
+        } else {
+          item.checked = true;
+        }
+      }
+    });
+    const resultedList = [...list];
+    setValue(resultedList);
   };
 
   const deleteItemHandler = (id) => {
@@ -41,6 +51,14 @@ function App() {
     style = '';
     setValue(list);
   };
+
+  useEffect(() => {
+    if (list.length > 0) {
+      document.title = `Items: ${list.length}`;
+    } else if (list.length === 0) {
+      document.title = 'ToDo List';
+    }
+  });
 
   return (
     <div className="main-container">
